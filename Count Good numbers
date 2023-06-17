@@ -1,0 +1,22 @@
+
+class Solution {
+  public:
+    vector<int> goodNumbers(int L, int R, int D) {
+        // code here
+        vector<int>ans;
+        for(int i=L;i<=R;i++){
+            vector<int>arr;int n=i;int sum=n%10;n=n/10;int flag=1;
+            if(sum==D)flag=0;
+            while(n>0){
+                int t=n%10;
+                if(t<=sum||t==D){flag=0;break;}
+                sum=sum+t;
+                n=n/10;
+            }
+            if(flag==1)ans.push_back(i);
+            }
+            return ans;
+            
+        
+    }
+};
