@@ -1,0 +1,26 @@
+ class Solution{
+  public:
+    /*You are required to complete this method */
+    int atoi(string str) {
+        //Your code here
+        int ans=0;
+        if(str[0]=='-'){
+             
+          for(int i=1;i<str.size();i++){
+          
+            int num=str[i]-'0';
+            if(num<=-1||num>=10)return -1;
+            ans=ans*10+num;
+        } 
+            ans=ans*(-1);
+            return ans;
+        }
+        for(int i=0;i<str.size();i++){
+          
+            int num=str[i]-'0';
+            if(num<0||num>9)return -1;
+            ans=ans*10+num;
+        }
+        return ans;
+    }
+};
