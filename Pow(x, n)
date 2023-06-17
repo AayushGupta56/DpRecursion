@@ -1,0 +1,21 @@
+class Solution{
+    public:
+    //You need to complete this fucntion
+    
+    long long power(int N,int R)
+    {
+       //Your code here
+      long long ans=1;long long  m=1e9+7;
+      int n=R;
+      while(n>0){
+          if(n&1){
+              ans=((ans%m)*(N%m))%m;
+          }
+          N=((N%m)*(N%m))%m;
+          n=n>>1;
+      }
+      return ans;
+   
+    }
+
+};
