@@ -1,0 +1,22 @@
+class Solution{
+
+	public:
+	void solve(int i,int n,int arr[],int sum,int total,int &ans){
+	    if(i==n||total>sum)return;
+	    
+	    total=total+arr[i];
+	    if(total==sum)ans++;
+	    solve(i+1,n,arr,sum,total,ans);
+	    total=total-arr[i];
+	    solve(i+1,n,arr,sum,total,ans);
+	    
+	}
+	int perfectSum(int arr[], int n, int sum)
+	{
+        // Your code goes here
+        int ans=0;
+        solve(0,n,arr,sum,0,ans);
+        return ans;
+	}
+	  
+};
