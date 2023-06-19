@@ -19,3 +19,33 @@ class Solution {
         return ans;
     }
 };
+/////////////////////////////////////dfs method
+class Solution {
+
+  public:
+  void solve(int i,int n,int sum,vector<int>&arr,vector<int>subset, vector<vector<int>>&ans ){
+        ans.push_back(subset);
+        // if(i==n){
+        //     ans.push_back(subset);return;
+        // }
+        // subset.push_back(arr[i]);
+        // solve(i+1,n,sum+arr[i],arr,subset,ans);
+        // subset.pop_back();
+        // while(i+1<n&&arr[i]==arr[i+1])i++;
+        // solve(i+1,n,sum,arr,subset,ans);
+        //
+         for(int j=i;j<n;j++){
+          if(j>i&&arr[j]==arr[j-1])continue;
+          
+          subset.push_back(arr[j]);
+          solve(j+1,n,sum+arr[j],arr,subset,ans);
+          subset.pop_back();}
+    }
+    vector<vector<int>> printUniqueSubsets(vector<int>& arr) {
+        // Write your code here
+        sort(arr.begin(),arr.end());
+         vector<vector<int>>ans; vector<int>subset;int N=arr.size();
+        solve(0,N,0,arr,subset,ans);
+        return ans;
+    }
+};
