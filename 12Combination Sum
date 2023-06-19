@@ -1,0 +1,39 @@
+
+class Solution {
+  public:
+    //Function to return a list of indexes denoting the required 
+    //combinations whose sum is equal to given number.
+    void solve(int i,int n,int sum,int target,vector<int>&arr, 
+    vector<vector<int>>&ans,vector<int>subset){
+        
+      if(i==n){
+         if(sum==target){
+            sort(subset.begin(),subset.end());
+            ans.push_back(subset);
+        }
+        return;
+    }
+        if(sum+arr[i]<=target){
+            subset.push_back(arr[i]);
+          
+            solve(i,n,sum+arr[i],target,arr,ans,subset);
+            subset.pop_back();
+        }
+         solve(i+1,n,sum,target,arr,ans,subset);
+        
+        
+    }
+    vector<vector<int> > combinationSum(vector<int> &arr, int target) {
+        // Your code here
+        
+       map<int,int>m;vector<int>arr1;
+       for(auto it:arr){
+           if(m.find(it)==m.end()){m[it]++;arr1.push_back(it);}
+       }
+       sort(arr1.begin(),arr1.end());
+        vector<vector<int>>ans;vector<int>subset;
+        int n=arr1.size();
+        solve(0,arr1.size(),0,target,arr1,ans,subset);
+        return ans;
+    }
+};
