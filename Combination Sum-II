@@ -1,0 +1,36 @@
+class Solution {
+  public:
+  void solve(int i,int n,int sum ,int target,vector<int>arr,
+  vector<vector<int>>&ans,vector<int>subset){
+      if(sum==target){
+             ans.push_back(subset);  return;
+          }
+      if(i==n){
+             return;
+      }
+      if(sum>target)return;
+      
+         
+       
+  
+           for(int j=i;j<n;j++){
+          if(j>i&&arr[j]==arr[j-1])continue;
+          if(sum+arr[j]>target)return;
+          subset.push_back(arr[j]);
+          solve(j+1,n,sum+arr[j],target,arr,ans,subset);
+          subset.pop_back();
+          
+      }
+       
+    
+      
+      
+  }
+    vector<vector<int>> combinationSum2(vector<int> &arr, int target) {
+        // Write your code here
+        sort(arr.begin(),arr.end());int n=arr.size();
+          vector<vector<int>>ans;vector<int>subset;
+          solve(0,n,0,target,arr,ans,subset);
+          return ans;
+    }
+};
