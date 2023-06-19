@@ -1,0 +1,26 @@
+class Solution {
+  public:
+  void solve(int i,int size,int n,int sum,int target,int k,
+  vector<vector<int>>&ans,vector<int>subset,vector<int>arr){
+      if(size==k){
+          if(sum==target)ans.push_back(subset);
+          return;
+      }
+      if(size>k||i>=9)return;
+      
+          subset.push_back(arr[i]);
+          solve(i+1,size+1,n,sum+arr[i],target,k,ans,subset,arr);
+          subset.pop_back();
+     
+      solve(i+1,size,n,sum,target,k,ans,subset,arr);
+      
+  }
+    vector<vector<int>> combinationSum(int k, int target) {
+        // code here
+        vector<int>arr;vector<vector<int>>ans;vector<int>subset;
+        for(int i=1;i<=9;i++)arr.push_back(i);
+        
+       solve(0,0,9,0,target,k,ans,subset,arr);
+       return ans;
+    }
+};
