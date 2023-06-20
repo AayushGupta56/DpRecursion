@@ -1,0 +1,22 @@
+class Solution {
+public:
+   void solve(int idx,int n,vector<int>arr,vector<vector<int>>&ans,vector<int>subset,vector<int>vis){
+      if(idx==n){
+          ans.push_back(subset);
+          return;
+      }
+       for(int i=0;i<n;i++){
+         if(vis[i]==0) { subset.push_back(arr[i]);
+           vis[i]=1;
+           solve(idx+1,n,arr,ans,subset,vis);
+           subset.pop_back();
+           vis[i]=0;}
+       }
+   }
+    vector<vector<int>> permute(vector<int>& arr) {
+        int n=arr.size();
+     vector<vector<int>> ans;vector<int>subset;vector<int>vis(n,0);
+        solve(0,arr.size(),arr,ans,subset,vis);
+        return ans;
+    }
+};
