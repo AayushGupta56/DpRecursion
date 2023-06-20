@@ -1,0 +1,32 @@
+class Solution {
+public:
+   void solve(int i,int n,vector<string>&ans,string subset,string& digits, map<int,string>&m){
+    if(i==n){
+        ans.push_back(subset);
+        return;
+    }
+
+    //int a=digits[i];
+    int a=stoi(digits.substr(i,1));
+      for(auto it:m[a]){
+          subset.push_back(it);
+          solve(i+1,n,ans,subset,digits,m);
+          subset.pop_back();
+      }
+
+
+
+   }
+    vector<string> letterCombinations(string digits) {
+        map<int,string>m;
+        m[2]="abc";m[3]="def";m[4]="ghi";m[5]="jkl";
+        m[6]="mno";m[7]="pqrs";m[8]="tuv";m[9]="wxyz";
+        vector<string>ans;string subset;
+        int n=digits.size();
+        if(n==0)return ans;
+        //ans.push_back(subset);
+        solve(0,n,ans,subset,digits,m);
+        return ans;
+        
+    }
+};
