@@ -1,0 +1,27 @@
+class Solution{
+
+	public:
+	int m=1e9+7;
+    int solve(int i,int n,int target,int arr[],vector<vector<int>>&dp){
+        //if(target==0)return 1;
+        if(i==0){
+            if(arr[0]==0&&target==0)return 2;
+            if(arr[0]==target||target==0)return 1;
+            else return 0;
+        }
+        if(dp[i][target]!=-1)return dp[i][target];
+        int notpick=solve(i-1,n,target,arr,dp);
+        int pick=0;
+        if(arr[i]<=target)pick=solve(i-1,n,target-arr[i],arr,dp);
+        dp[i][target]=(pick%m+notpick%m)%m;
+        
+    }
+	int perfectSum(int arr[], int n, int sum)
+	{            
+	    vector<vector<int>>dp(n,vector<int>(sum+1,-1));
+	    return solve(n-1,n,sum,arr,dp);
+        // Your code goes here
+         
+	}
+	  
+};
