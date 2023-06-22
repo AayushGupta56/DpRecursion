@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int solve(int i,int j,vector<vector<int>>& grid,vector<vector<int>>& dp){
+        if(i==grid.size()-1)return grid[i][j];
+        if(dp[i][j]!=-1)return dp[i][j];
+        int bottom=grid[i][j]+solve(i+1,j,grid,dp);
+        int diagnal=grid[i][j]+solve(i+1,j+1,grid,dp);
+        return dp[i][j]=min(bottom,diagnal);
+    }
+    int minimumTotal(vector<vector<int>>& grid) {
+       
+         int n=grid.size();
+          vector<vector<int>> dp(n,vector<int>(n,-1));
+          return solve(0,0,grid,dp);
+
+    }
+};
