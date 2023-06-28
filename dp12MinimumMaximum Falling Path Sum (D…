@@ -1,27 +1,47 @@
 class Solution {
 public:
-  int solve(int i,int j,vector<vector<int>>& grid,vector<vector<int>>& dp,int){
-    if(i==grid.size()-1&&j>=0&&j<grid.size())return grid[i][j];
+  int solve(int i,int j,vector<vector<int>>& grid,vector<vector<int>>& dp,int n){
+    if(j < 0 || j >= grid.size()) return 1e9;
+    if(i==n-1)return grid[i][j];
    // if(i>=grid.size()||j>=grid.size()||j<0||i<0)return 1e9;
-   if(j < 0 || j >= grid.size()) return 1e9;
+   
 
     if(dp[i][j]!=-1)return dp[i][j];
 
-     int bottom=grid[i][j]+solve(i+1,j,grid,dp);
-     int diagnal1=grid[i][j]+solve(i+1,j+1,grid,dp);
-     int diagnal2=grid[i][j]+solve(i+1,j-1,grid,dp);
+     int bottom=grid[i][j]+solve(i+1,j,grid,dp,n);
+     int diagnal1=grid[i][j]+solve(i+1,j+1,grid,dp,n);
+     int diagnal2=grid[i][j]+solve(i+1,j-1,grid,dp,n);
      dp[i][j]=min(bottom,min(diagnal1,diagnal2));
   
    return dp[i][j];
   }
     int minFallingPathSum(vector<vector<int>>& grid) {
       int n=grid.size();
-       vector<vector<int>>dp(n,vector<int>(n,-1));
+      //  vector<vector<int>>dp(n,vector<int>(n,-1));
+      //  int ans=INT_MAX;
+      //  for(int i=0;i<n;i++){
+      //   int temp=solve(0,i,grid,dp,n);
+      //   if(temp<ans)ans=temp;
+      //  } 
+      //  return ans;
+       vector<vector<int>>dp(n,vector<int>(n,0));
+       for(int i=0;i<n;i++)dp[0][i]=grid[0][i];
+
+       for(int i=1;i<n;i++){
+         for(int j=0;j<n;j++){
+           int up=INT_MAX;int left=INT_MAX;int right=INT_MAX;
+           if(i>0) up=grid[i][j]+dp[i-1][j];
+           if(j-1>=0)left=grid[i][j]+dp[i-1][j-1];
+           if(j+1<n)right=grid[i][j]+dp[i-1][j+1];
+
+           dp[i][j]=min(up,min(left,right));
+          
+         }
+       }
        int ans=INT_MAX;
        for(int i=0;i<n;i++){
-        int temp=solve(0,i,grid,dp,n);
-        if(temp<ans)ans=temp;
-       } 
+         ans=min(ans,dp[n-1][i]);
+       }
        return ans;
     }
 };
