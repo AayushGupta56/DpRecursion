@@ -1,30 +1,45 @@
-class Solution {
+class Solution{
 public:
-bool solve(int i,int target,vector<int>&arr,vector<vector<int>>&dp){
-          if(target==0)return 1;
-          if(i==0){
-              if(arr[i]==target)return 1;
-              else return 0;
-          }
-          if(dp[i][target]!=-1)return dp[i][target];
-          int pick=0;
-          if(arr[i]<=target){
-              pick=solve(i-1,target-arr[i],arr,dp);
-          }
-          int notpick=solve(i-1,target,arr,dp);
-          
-          return dp[i][target]=pick|notpick;
-      }
-    bool canPartition(vector<int>& arr) {
-        int n=arr.size();int target=0;
-       for(int i=0;i<n;i++)target+=arr[i];
-       if(target%2==1)return false;
-       else {
-             target=target/2;
-        vector<vector<int>>dp(n,vector<int>(target+1,-1));
-        return solve(n-1,target,arr,dp);
-
-       }
-
+     bool solve(int i,int target,int arr[],vector<vector<int>>&dp){
+         if(target==0)return true;
+         if(i==0){
+             if(arr[i]==target)return true;
+             else return false;
+         }
+         if(dp[i][target]!=-1)return dp[i][target];
+         bool pick=false;
+         if(arr[i]<=target)pick=solve(i-1,target-arr[i],arr,dp);
+         bool notpick=solve(i-1,target,arr,dp);
+         return dp[i][target]=pick||notpick;
+         
+     }
+    int equalPartition(int n, int arr[])
+    {
+        // code here
+        int sum=0;
+        for(int i=0;i<n;i++)sum+=arr[i];
+        if(sum%2==1)return 0;
+        sum=sum/2;
+        // vector<vector<int>>dp(n,vector<int>(sum+1,-1));
+        // bool ans= solve(n-1,sum,arr,dp);
+        // if(ans)return 1;
+        // else return 0;
+        vector<vector<bool>>dp(n,vector<bool>(sum+1,0));
+        for(int i=0;i<n;i++)dp[i][0]=true;
+        if(arr[0]<=sum)dp[0][arr[0]]=true;
+        
+        for(int i=1;i<n;i++){
+            for(int target=1;target<=sum;target++){
+                bool pick=false;
+                if(arr[i]<=target)pick=dp[i-1][target-arr[i]];
+                int notpick=dp[i-1][target];
+                dp[i][target]=pick||notpick;
+            }
+        }
+        
+        if(dp[n-1][sum])return 1;
+        else return 0;
+        
+        
     }
 };
