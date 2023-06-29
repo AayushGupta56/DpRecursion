@@ -1,0 +1,24 @@
+class Solution{
+public:
+    int solve(int i,int w,int val[], int wt[], vector<vector<int>>&dp){
+        if(i==0){
+            if(wt[i]<=w){
+                int toadd=w/wt[i];
+                return val[i]*toadd;
+            }
+            return 0;
+        }
+        
+        if(dp[i][w]!=-1)return dp[i][w];
+        int pick=0;int notpick=0;
+        if(wt[i]<=w)pick=val[i]+solve(i,w-wt[i],val,wt,dp);
+        notpick=solve(i-1,w,val,wt,dp);
+        return dp[i][w]=max(pick,notpick);
+        
+    }
+    int knapSack(int n, int W, int val[], int wt[])
+    {
+        vector<vector<int>>dp(n,vector<int>(W+1,-1));
+       return solve(n-1,W,val,wt,dp);
+    }
+};
