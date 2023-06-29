@@ -1,0 +1,22 @@
+class Solution{
+  public:
+  int solve(int i,int w,int price[],vector<vector<int>>&dp){
+      if(i==0){
+          if(i+1<=w){
+              int toadd=w/(i+1);
+              return toadd*price[i];
+          }
+          return 0;
+      }
+      if(dp[i][w]!=-1)return dp[i][w];
+      int take=0;int nottake=0;
+      if(i+1<=w)take=price[i]+solve(i,w-(i+1),price,dp);
+      nottake=solve(i-1,w,price,dp);
+      return dp[i][w]=max(take,nottake);
+  }
+    int cutRod(int price[], int n) {
+        //code here
+        vector<vector<int>>dp(n,vector<int>(n+1,-1));
+        return solve(n-1,n,price,dp);
+    }
+};
