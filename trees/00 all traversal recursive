@@ -1,0 +1,19 @@
+   void solve(BinaryTreeNode<int> *root,vector<int>&pre,vector<int>&in,vector<int>&post){
+       if(root==NULL)return;
+       pre.push_back(root->data);
+       solve(root->left,pre,in,post);
+       in.push_back(root->data);
+       solve(root->right,pre,in,post);
+       post.push_back(root->data);
+
+     }
+vector<vector<int>> getTreeTraversal(BinaryTreeNode<int> *root){
+    // Write your code here.
+         vector<int>pre;vector<int>inorder;vector<int>postorder;
+         solve(root,pre ,inorder,postorder);
+         vector<vector<int>>ans;
+         ans.push_back(inorder);
+          ans.push_back(pre);
+            ans.push_back(postorder);
+            return ans;
+}
