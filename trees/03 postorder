@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-   void pre(TreeNode*root,vector<int>&ans){
+   void post(TreeNode*root,vector<int>&ans){
        if(root==NULL)return;
        
        pre(root->left,ans);
@@ -21,7 +21,7 @@ public:
      }
     vector<int> postorderTraversal(TreeNode* root) {
         vector<int>ans;
-       pre(root,ans);
+       post(root,ans);
        return ans;
     }
 };
