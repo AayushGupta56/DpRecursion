@@ -12,25 +12,17 @@
 class Solution {
 public:
 
-    void reversePreorder(TreeNode* root, int level , vector<int> &res){
+ void solve(TreeNode*root,int level,vector<int>&ans){
+   if(root==0)return ;
+   if(ans.size()==level)ans.push_back(root->val);
+   solve(root->right,level+1,ans);
+   solve(root->left,level+1,ans);
 
-        if(root == NULL)
-            return;
 
-        if(res.size() == level){
-            res.push_back(root->val);
-        }
-
-        reversePreorder(root->right,level+1,res);
-        reversePreorder(root->left,level+1,res);
-
-    }
-
+ }
     vector<int> rightSideView(TreeNode* root) {
-
-        vector<int> res;
-
-        reversePreorder(root,0,res);
-        return res;
+        vector<int>ans;
+        solve(root,0,ans);
+        return ans;
     }
 };
