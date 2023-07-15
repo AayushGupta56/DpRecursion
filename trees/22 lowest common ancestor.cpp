@@ -13,9 +13,10 @@ public:
    if(root==0||root ==p||root==q)return root;
    TreeNode*left=solve(root->left,p,q);
    TreeNode*right=solve(root->right,p,q);
-   if(left==0)return right;
-   else if(right==0)return left;
-   else return root;
+   if(left!=0&right!=0)return root;
+  else if(left==0&&right!=0)return right;
+   else if(left!=0&&right==0)return left;
+   else return NULL;//if(left==0&&right==0)return NULL
 
    }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
